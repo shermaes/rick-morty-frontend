@@ -1,8 +1,47 @@
 export default function Characters(props) {
-    //paso 3) aca le estamos diceindo al componente que vamos a recibir props
-    console.log(props);
-    //paso 4) al imprimir los props que recibimos vemos que estamos recibiendo los datos de los characters
+const {characters, setCharacters} = props;
+//guardamos los props dentro de characters
+const resetCharacters = () => {
+    console.log("Reseteando");
+    setCharacters(null)
+}
   return (
-    <h1>Hola desde characters js</h1>
+    <div className="characters">
+     <h1>Personajes</h1>
+     <span className="back-home" onClick={resetCharacters}>Volver a la home</span>
+     <div className="container-characters">
+        {characters.map((character, index) => (
+            <div className="character-container" key={index}>
+                <div>
+                    <img src={character.image} alt={character.name}/>
+                   </div> 
+
+                <div>   
+                    <h3>{character.name}</h3>
+                    <h6>{character.status === "Alive" ?(
+                    <>
+                    <span className="alive"/>
+                    Alive
+                </>
+                    ): (
+                        <>
+                        <span className="dead"/>
+                        Dead
+                        </>
+                    )}</h6>
+                    <p>
+                        <span  className="text-grey">Episodios:</span>
+                        <span>{character.episode.length}</span>
+                    </p>
+                    <p>
+                        <span className="text-grey">Especie:</span>
+                        <span>{character.species}</span>
+                    </p>
+                </div>
+            </div>
+        ))}        
+    </div>
+    <span className="back-home" onClick={resetCharacters}>Volver a la home</span>
+    </div>
   )
 }
